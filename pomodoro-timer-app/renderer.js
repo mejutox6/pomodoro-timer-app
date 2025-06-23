@@ -1,9 +1,12 @@
+const timerDisplay = document.getElementById('timerDisplay'); // Use this everywhere
+
 let timerDuration = Math.round(parseFloat(document.getElementById('timerInput').value) * 60);
 let shortPauseDuration = Math.round(parseFloat(document.getElementById('shortPauseInput').value) * 60);
 let longPauseDuration = Math.round(parseFloat(document.getElementById('longPauseInput').value) * 60);
 let remaining = timerDuration;
 let intervalId = null;
 let sessionCount = 0;
+const finishSound = new Audio('media/ding.mp3');
 
 function setActiveBox(box) {
   document.getElementById('box-pomodoro').classList.remove('active');
@@ -17,7 +20,7 @@ function setActiveBox(box) {
 function updateDisplay() {
   const minutes = String(Math.floor(remaining / 60)).padStart(2, '0');
   const seconds = String(remaining % 60).padStart(2, '0');
-  document.getElementById('timerDisplay').innerText = `${minutes}:${seconds}`;
+  timerDisplay.innerText = `${minutes}:${seconds}`;
 }
 
 function startTimer(duration, box, onComplete) {
@@ -31,6 +34,8 @@ function startTimer(duration, box, onComplete) {
       updateDisplay();
     } else {
       clearInterval(intervalId);
+      finishSound.currentTime = 0; // Rewind to start
+      finishSound.play();          // Play the sound
       if (onComplete) onComplete();
     }
   }, 1000);
