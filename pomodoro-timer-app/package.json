@@ -1,0 +1,27 @@
+{
+  "name": "pomodoro-timer-app",
+  "version": "1.0.0",
+  "description": "A simple Pomodoro timer application built with Electron and TypeScript.",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "tsc",
+    "package-win": "electron-packager . PomodoroTimer --platform=win32 --arch=x64 --icon=media/tomato.ico --executable-name=Pomodoro --overwrite"
+  },
+  "dependencies": {
+    "electron": "^25.0.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.2",
+    "ts-loader": "^9.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "electron",
+    "typescript"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

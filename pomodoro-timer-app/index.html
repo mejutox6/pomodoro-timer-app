@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pomodoro Timer</title>
+  <!-- Add Google Fonts for a friendly, feminine style -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', Arial, sans-serif;
+      background: #fff6e3;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 16px;
+      color: #e17055;
+      letter-spacing: 2px;
+      font-family: 'Pacifico', cursive;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    h1 img {
+      height: 56px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(230,126,34,0.10);
+      background: #fff6e3;
+      padding: 6px;
+      display: inline-block;
+    }
+    .config {
+      margin: 10px auto 0 auto;
+      padding: 10px;
+      background: #fff3e0;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 2px 8px rgba(230, 126, 34, 0.08);
+    }
+    .config label {
+      margin: 0 8px;
+      font-size: 1em;
+      color: #d35400;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+    .session-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 18px auto 0 auto;
+      width: 100%;
+      max-width: 650px;
+    }
+    .session-box {
+      flex: 1;
+      min-width: 120px;
+      padding: 14px 0;
+      border-radius: 10px;
+      background: #ffe0b2;
+      color: #b35400;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(230, 126, 34, 0.05);
+      border: 2px solid transparent;
+      font-family: 'Quicksand', Arial, sans-serif;
+      word-break: break-word;
+    }
+    .session-box.active {
+      background: #ffb74d;
+      color: #fff;
+      border: 2px solid #e17055;
+      box-shadow: 0 4px 16px rgba(230, 126, 34, 0.15);
+    }
+    #app {
+      margin: 24px auto 0 auto;
+      font-size: 3em;
+      font-weight: bold;
+      color: #e17055;
+      background: #fff3e0;
+      width: 220px;
+      border-radius: 15px;
+      padding: 18px 0;
+      box-shadow: 0 2px 12px rgba(230, 126, 34, 0.10);
+      letter-spacing: 2px;
+      font-family: 'Quicksand', Arial, sans-serif;
+    }
+    #iniciarBtn {
+      margin-left: 20px;
+      padding: 8px 18px;
+      font-size: 1em;
+      background: #e17055;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #iniciarBtn:hover {
+      background: #fd9644;
+    }
+    #resetBtn {
+      margin-left: 10px;
+      padding: 8px 18px;
+      font-size: 1em;
+      background: #fd9644;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #resetBtn:hover {
+      background: #e17055;
+    }
+    input[type="number"] {
+      border: 1px solid #ffb74d;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 1em;
+      background: #fff;
+      color: #d35400;
+      width: 60px;
+    }
+    .switch-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1em;
+      color: #d35400;
+      font-family: 'Quicksand', Arial, sans-serif;
+      cursor: pointer;
+      user-select: none;
+    }
+    .switch-label input[type="checkbox"] {
+      display: none;
+    }
+    .slider {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: #ffd6b0;
+      border-radius: 24px;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .slider:before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      background: #e17055;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+    .switch-label input:checked + .slider {
+      background: #ffb74d;
+    }
+    .switch-label input:checked + .slider:before {
+      transform: translateX(20px);
+      background: #e17055;
+    }
+    .switch-text {
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    <img src="media/tomato.webp" alt="Logo" style="
+      height: 56px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(230,126,34,0.10);
+      background: #fff6e3;
+      padding: 6px;
+      display: inline-block;
+    ">
+    Pomodoro Timer
+  </h1>
+  <div class="config">
+    <div style="margin-bottom: 10px;">
+      <label class="switch-label">
+        <input type="checkbox" id="pomodoroSwitch" checked>
+        <span class="slider"></span>
+        <span class="switch-text">Secuencia Pomodoro*</span>
+      </label>
+    </div>
+    <label>Pomodoro (min): <input type="number" id="timerInput" value="25" min="1" step="0.1"></label>
+    <label>Pausa corta (min): <input type="number" id="shortPauseInput" value="5" min="1" step="0.1"></label>
+    <label>Pausa Larga (min): <input type="number" id="longPauseInput" value="15" min="1" step="0.1"></label>
+    <div style="margin-top: 18px;">
+      <button id="iniciarBtn">Iniciar</button>
+      <button id="resetBtn">Reestablecer</button>
+    </div>
+  </div>
+  <div class="session-boxes">
+    <div id="box-pomodoro" class="session-box active">Pomodoro</div>
+    <div id="box-short" class="session-box">Pausa corta</div>
+    <div id="box-long" class="session-box">Pausa Larga</div>
+  </div>
+  <div id="app">
+    <span id="timerDisplay"></span>
+  </div>
+  <div style="margin-top: 32px; margin-bottom: 12px; color: #b35400; font-family: 'Quicksand', Arial, sans-serif; font-size: 1em;">
+    *Secuencia Pomodoro: Sesión de trabajo (Pomodoro) → Pausa corta → Repite el ciclo 4 veces → Pausa larga.
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
