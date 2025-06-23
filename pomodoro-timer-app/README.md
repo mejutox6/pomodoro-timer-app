@@ -1,44 +1,64 @@
 # Pomodoro Timer App
 
-## Overview
-The Pomodoro Timer App is a desktop application built using Electron and TypeScript. It helps users manage their time effectively by utilizing the Pomodoro Technique, which encourages focused work sessions followed by short breaks.
+A simple, friendly Pomodoro timer desktop application built with Electron and TypeScript.
 
 ## Features
-- Start, pause, and reset the timer.
-- Customizable timer settings.
-- User-friendly interface for managing work sessions and breaks.
+
+- Pomodoro timer with customizable work and break durations
+- "Secuencia Pomodoro" mode (work → short break → repeat 4 times → long break)
+- Option to run only a single Pomodoro session (no breaks)
+- Friendly, feminine UI with custom fonts and colors
+- Sound notification when the timer reaches 00:00
+- Works as a standalone Windows `.exe` (no need for Visual Studio or compilers)
+
+## How to Use
+
+1. **Clone or download the repository.**
+2. Run `npm install` to install dependencies.
+3. Run `npm run build` to compile TypeScript.
+4. Run `npm start` to launch the app.
+5. To create a standalone `.exe`, run `npm run package-win`.
+
+## Controls
+
+- **Iniciar:** Start the timer or Pomodoro sequence.
+- **Reestablecer:** Reset the timer.
+- **Secuencia Pomodoro:** Toggle between full Pomodoro cycles and single session mode.
+
+## Customization
+
+- Change timer durations using the input fields.
+- The app icon and notification sound are in the `media/` folder (`tomato.ico` and `ding.mp3`).
 
 ## Project Structure
-```
-pomodoro-timer-app
-├── src
-│   ├── main.ts          # Main entry point for the Electron application
-│   ├── renderer.ts      # Manages the user interface and renderer process
-│   ├── components
-│   │   └── Timer.ts     # Timer class with methods to control the timer
-│   └── types
-│       └── index.ts     # Type definitions for timer settings and state
-├── package.json         # npm configuration file
-├── tsconfig.json        # TypeScript configuration file
-└── README.md            # Project documentation
-```
-
-## Installation
-To install the necessary dependencies, run the following command in the project directory:
 
 ```
-npm install
+pomodoro-timer-app/
+├── dist/                   # Compiled JavaScript files (output from TypeScript)
+├── media/                  # App assets (icon and sound)
+│   ├── tomato.ico
+│   └── ding.mp3
+├── node_modules/           # Installed dependencies (not tracked by git)
+├── src/                    # Source TypeScript files
+│   ├── main.ts
+│   ├── preload.ts
+│   └── renderer.ts
+├── index.html              # Main HTML file for the app UI
+├── package.json            # Project metadata and scripts
+├── .gitignore              # Files and folders to ignore in git
+├── README.md               # Project documentation
 ```
 
-## Usage
-To start the application, use the following command:
+## .gitignore
 
-```
-npm start
-```
-
-## Contributing
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
+This project ignores:
+- `node_modules/`
+- `dist/`
+- Build outputs (`PomodoroTimer-win32-x64/`, `*.exe`, `*.zip`)
+- Log files
 
 ## License
-This project is licensed under the MIT License.
+
+MIT
+
+---
